@@ -1,27 +1,4 @@
---create a database
-CREATE database platzi_operation;
---create a database if not exists
-CREATE DATABASE IF NOT EXISTS platzi_operation;
---use database 
-use platzi_operation;
--- Show tables from datase
-show tables;
--- create a table
-CREATE TABLE `books` (
-  `book_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `author_id` int(10) unsigned DEFAULT NULL,
-  `title` varchar(100) NOT NULL,
-  `year` int(11) NOT NULL DEFAULT '1900',
-  `language` varchar(2) NOT NULL COMMENT 'ISO 639-1 Language code (2 chars)',
-  `cover_url` varchar(500) DEFAULT NULL,
-  `price` double(6,2) DEFAULT NULL,
-  `sellable` tinyint(1) NOT NULL DEFAULT '0',
-  `copies` int(11) NOT NULL DEFAULT '1',
-  `description` text,
-  PRIMARY KEY (`book_id`),
-  UNIQUE KEY `book_language` (`title`,`language`)
-) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=utf8;
-
+--in order of collumns
 INSERT INTO `books` VALUES (1,1,'The Startup Playbook',2013,'en',NULL,10.00,1,5,'Advice from the experts'),
 (2,1,'The Startup Playbook',2014,'es',NULL,10.00,1,5,'Consejo de los expertos, traducido por Platzi'),
 (3,3,'Estudio en escarlata',1887,'es',NULL,5.00,1,10,'La primera novela de Sherlock Holmes'),
@@ -220,14 +197,6 @@ INSERT INTO `books` VALUES (1,1,'The Startup Playbook',2013,'en',NULL,10.00,1,5,
 (197,70,'The Idiot',1900,'en',NULL,NULL,1,4,NULL),
 (198,192,'A Christmas Carol',1900,'en',NULL,NULL,1,4,NULL);
 
-CREATE TABLE `authors` (
-  `author_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `nationality` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`author_id`),
-  UNIQUE KEY `uniq_author` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
-
 INSERT INTO `authors` VALUES (1,'Sam Altman','USA'),
 (2,'Freddy Vega','COL'),
 (3,'Arthur Conan Doyle','GBR'),
@@ -361,18 +330,6 @@ INSERT INTO `authors` VALUES (1,'Sam Altman','USA'),
 (189,'Steve Eddins', NULL),
 (192,'Charles Dickens',"ENG");
 
-CREATE TABLE `clients` (
-  `client_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `email` varchar(100) NOT NULL,
-  `birthdate` date DEFAULT NULL,
-  `gender` enum('M','F') DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`client_id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
-
 INSERT INTO `clients` VALUES (1,'Maria Dolores Gomez','Maria Dolores.95983222J@random.names','1971-06-06','F',1,'2018-04-09 16:51:30'),
 (2,'Adrian Fernandez','Adrian.55818851J@random.names','1970-04-09','M',1,'2018-04-09 16:51:30'),
 (3,'Maria Luisa Marin','Maria Luisa.83726282A@random.names','1957-07-30','F',1,'2018-04-09 16:51:30'),
@@ -473,14 +430,3 @@ INSERT INTO `clients` VALUES (1,'Maria Dolores Gomez','Maria Dolores.95983222J@r
 (98,'Rosa Maria Singh','Rosa Maria.41642169W@random.names','1956-12-31','F',1,'2018-04-09 16:51:31'),
 (99,'angeles Mena','angeles.88859550Q@random.names','1987-09-22','F',1,'2018-04-09 16:51:31'),
 (100,'Jose Hidalgo','Jose.05903641R@random.names','1973-08-13','M',1,'2018-04-09 16:51:31');
-
-CREATE TABLE `transactions` (
-  `transaction_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `book_id` int(10) unsigned NOT NULL,
-  `client_id` int(10) unsigned NOT NULL,
-  `type` enum('lend','sell') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `finished` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`transaction_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -1,0 +1,2 @@
+-- add value to a duplicate key
+insert into clients (name, email, birthdate, gender, active) value ('pedro sanchez', 'pedro.78522059j@random.names','1992-01-31','M',0) ON DUPLICATE KEY UPDATE active = VALUES(active)
